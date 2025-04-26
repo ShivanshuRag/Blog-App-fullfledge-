@@ -1,46 +1,59 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
-import {Container, PostCard} from '../components'
+import { Container, PostCard } from "../components";
 
 function Home() {
-    const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents)
-            }
-        })
-    }, [])
-  
-    if (posts.length === 0) {
-        return (
-            <div className="w-full py-8 mt-4 text-center">
-                <Container>
-                    <div className="flex flex-wrap">
-                        <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                Login to read posts
-                            </h1>
-                        </div>
-                    </div>
-                </Container>
-            </div>
-        )
-    }
+  useEffect(() => {
+    setLoading(true);
+    appwriteService
+      .getPosts()
+      .then((posts) => {
+        if (posts) {
+          setPosts(posts.documents);
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
     return (
-        <div className='w-full py-8'>
-            <Container>
-                <div className='flex flex-wrap'>
-                    {posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
-                            <PostCard {...post} />
-                        </div>
-                    ))}
-                </div>
-            </Container>
+      <div className="w-full py-12 text-center">
+        <Container>
+          <p className="text-gray-500">Loading posts...</p>
+        </Container>
+      </div>
+    );
+  }
+
+  if (posts.length === 0) {
+    return (
+      <div className="w-full py-12 text-center">
+        <Container>
+          <h1 className="text-2xl font-medium text-gray-700">
+            No posts available yet
+          </h1>
+          <p className="mt-2 text-gray-500">
+            Check back later or create a new post
+          </p>
+        </Container>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full py-8">
+      <Container>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => (
+            <PostCard key={post.$id} {...post} />
+          ))}
         </div>
-    )
+      </Container>
+    </div>
+  );
 }
 
 export default Home;
