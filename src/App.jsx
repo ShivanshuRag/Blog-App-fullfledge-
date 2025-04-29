@@ -37,7 +37,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-violet-500 to-fuchsia-500">
+    <div className="min-h-screen flex flex-col bg-slate-900">
       <Header className="sticky top-0 z-50" />
 
       <main className="flex-grow p-4 md:p-8">

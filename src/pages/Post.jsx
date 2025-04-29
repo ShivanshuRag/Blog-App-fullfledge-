@@ -47,6 +47,7 @@ export default function Post() {
       }
     } catch (error) {
       console.error("Error deleting post:", error);
+      alert("Failed to delete post. Please try again.");
     }
   };
 
@@ -61,35 +62,15 @@ export default function Post() {
   if (!post) return null;
 
   return (
-    <div className="min-h-screen py-12 bg-gray-50">
+    <div className="min-h-screen py-12 bg-gray-50 rounded-lg">
       <Container>
         {/* Featured Image with Author Controls */}
         <div className="relative mb-8 group">
           <img
-            src={appwriteService.getFilePreview(post.featuredImage)}
+            src={appwriteService.getFileView(post.featuredImage)}
             alt={post.title}
             className="w-full h-auto max-h-96 object-cover rounded-xl shadow-lg transition-all duration-300 group-hover:shadow-xl"
           />
-
-          {isAuthor && (
-            <div className="absolute right-6 top-6 flex gap-3">
-              <Link to={`/edit-post/${post.$id}`}>
-                <Button
-                  bgColor="bg-green-600 hover:bg-green-700"
-                  className="px-4 py-2 shadow-md transition-colors"
-                >
-                  Edit
-                </Button>
-              </Link>
-              <Button
-                bgColor="bg-red-600 hover:bg-red-700"
-                onClick={deletePost}
-                className="px-4 py-2 shadow-md transition-colors"
-              >
-                Delete
-              </Button>
-            </div>
-          )}
         </div>
 
         {/* Post Content */}
@@ -111,13 +92,33 @@ export default function Post() {
         </article>
 
         {/* Back Button */}
-        <div className="mt-8 text-center">
+        <div className="mt-8 flex justify-between items-center">
           <Button
             onClick={() => navigate(-1)}
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition-colors"
           >
             ← Back to Posts
           </Button>
+
+          {isAuthor && (
+            <div className="flex gap-3">
+              <Link to={`/edit-post/${post.$id}`}>
+                <Button
+                  bgColor="bg-green-600 hover:bg-green-700"
+                  className="px-4 py-2 transition-colors min-w-[80px]"
+                >
+                  Edit
+                </Button>
+              </Link>
+              <Button
+                bgColor="bg-red-600 hover:bg-red-700"
+                onClick={deletePost}
+                className="px-4 py-2 transition-colors min-w-[80px]"
+              >
+                Delete
+              </Button>
+            </div>
+          )}
         </div>
       </Container>
     </div>
