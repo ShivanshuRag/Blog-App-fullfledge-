@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Logo, LogoutBtn } from "../index";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -8,11 +8,14 @@ import {
   FiLogIn,
   FiUserPlus,
   FiBook,
+  FiMenu,
+  FiX,
 } from "react-icons/fi";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     {
@@ -48,7 +51,7 @@ function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm backdrop-blur-sm bg-opacity-80 border-b border-gray-100 rounded-lg">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
       <Container>
         <nav className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -58,11 +61,10 @@ function Header() {
                 width="60px"
                 className="hover:opacity-90 transition-opacity"
               />
-              <span className="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent"></span>
             </Link>
           </div>
 
-          {/* Navigation Items */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map(
               (item) =>
@@ -70,7 +72,7 @@ function Header() {
                   <button
                     key={item.name}
                     onClick={() => navigate(item.slug)}
-                    className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors rounded-lg hover:bg-gray-50"
+                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors rounded-lg hover:bg-gray-50"
                   >
                     {item.icon}
                     {item.name}
@@ -85,47 +87,44 @@ function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button className="p-2 rounded-md text-gray-700 hover:bg-gray-100">
-              <svg
-                className="w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-gray-700 hover:text-blue-600 focus:outline-none"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
           </div>
         </nav>
-      </Container>
 
-      {/* Mobile Menu (would need state to toggle) */}
-      <div className="md:hidden bg-white py-2 px-4 shadow-lg">
-        {navItems.map(
-          (item) =>
-            item.active && (
-              <button
-                key={item.name}
-                onClick={() => navigate(item.slug)}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg"
-              >
-                {item.name}
-              </button>
-            )
-        )}
-        {authStatus && (
-          <div className="px-4 py-2">
-            <LogoutBtn />
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white py-2 border-t border-gray-100 animate-fadeIn">
+            {navItems.map(
+              (item) =>
+                item.active && (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      navigate(item.slug);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    {item.icon}
+                    <span className="ml-2">{item.name}</span>
+                  </button>
+                )
+            )}
+            {authStatus && (
+              <div className="px-4 py-3 border-t border-gray-100">
+                <LogoutBtn className="w-full justify-start" />
+              </div>
+            )}
           </div>
         )}
-      </div>
+      </Container>
     </header>
   );
 }
