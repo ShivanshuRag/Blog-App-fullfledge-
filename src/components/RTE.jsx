@@ -16,7 +16,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
             apiKey="5yj6v16vd6fj3wc3muiycoq79clresnm6o2mr88cvkvuue6b"
             initialValue={defaultValue}
             init={{
-              document_base_url: "https://localhost:5173",
+              document_base_url: "https://blog-app-three-cyan.vercel.app",
               initialValue: defaultValue,
               height: 500,
               menubar: true,
