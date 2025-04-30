@@ -46,7 +46,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/blog"
+                  to="/all-posts"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Blog
@@ -54,7 +54,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/categories"
+                  to="#"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Categories
@@ -62,7 +62,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/popular"
+                  to="/all-posts"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Popular
@@ -70,7 +70,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/about"
+                  to="#"
                   className="text-gray-400 hover:text-white transition"
                 >
                   About
@@ -87,7 +87,7 @@ function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/category/technology"
+                  to="#"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Technology
@@ -95,7 +95,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/category/design"
+                  to="#"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Design
@@ -103,7 +103,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/category/business"
+                  to="#"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Business
@@ -111,7 +111,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/category/lifestyle"
+                  to="#"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Lifestyle
@@ -119,7 +119,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/category/tutorials"
+                  to="#"
                   className="text-gray-400 hover:text-white transition"
                 >
                   Tutorials
@@ -154,19 +154,19 @@ function Footer() {
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link
-              to="/privacy"
+              to="#"
               className="text-gray-500 hover:text-white text-sm transition"
             >
               Privacy Policy
             </Link>
             <Link
-              to="/terms"
+              to="#"
               className="text-gray-500 hover:text-white text-sm transition"
             >
               Terms of Service
             </Link>
             <Link
-              to="/contact"
+              to="#"
               className="text-gray-500 hover:text-white text-sm transition"
             >
               Contact
