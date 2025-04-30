@@ -95,7 +95,7 @@ export default function Post() {
         <div className="mt-8 flex justify-between items-center">
           <Button
             onClick={() => navigate(-1)}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition-colors"
+            className="bg-gray-500 hover:bg-gray-700 text-gray-800 px-6 py-2 rounded-lg transition-colors"
           >
             ← Back to Posts
           </Button>

@@ -13,6 +13,8 @@ function App() {
     const checkAuthStatus = async () => {
       try {
         const userData = await authService.getCurrentUser();
+
+        console.log("userData hai kya!!!!!!!!", userData);
         if (userData) {
           dispatch(login({ userData }));
         } else {
